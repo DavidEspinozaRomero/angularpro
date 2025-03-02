@@ -1,0 +1,10 @@
+@reference "../../../../styles.css";
+
+button {
+    @apply w-full h-16 outline-none focus:outline-none hover:bg-indigo-700/20 text-white/50 text-xl font-light;
+}
+
+.is-command {
+    @apply bg-indigo-700/10;
+}
+

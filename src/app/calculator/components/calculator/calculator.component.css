@@ -1,0 +1,5 @@
+@reference "../../../../styles.css";
+
+.is-double-size {
+    @apply w-2/4 bg-indigo-700/30;
+}
