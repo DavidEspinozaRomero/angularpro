@@ -8,3 +8,7 @@ button {
     @apply bg-indigo-700/10;
 }
 
+.is-pressed {
+    @apply bg-indigo-800;
+}
+
