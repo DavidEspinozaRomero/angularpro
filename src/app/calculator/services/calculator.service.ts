@@ -16,12 +16,25 @@ export class CalculatorService {
   constructNumber(value: string): void {
     //Validar input
     if (![...numbers, ...operators, ...specialOpertors].includes(value)) {
-      console.log('invalid input:' + value);
+      // console.log('invalid input:' + value);
+      return
+    }
+
+    // validar punto decimal
+    if (value === '.') {
+      // console.log('validar punto decimal');
+      if (!this.resultText().includes('.')) return this.resultText.update(currentValue => currentValue + '.');
+      if (this.resultText().includes('.')) return;
+    }
+
+    // Manejo del cero inicial
+    if (value === '0' && (this.resultText() === '0' || this.resultText() === '-0')) {
+      return;
     }
 
     // =
     if (value === "=") {
-      console.log('calcular resultado');
+      // console.log('calcular resultado');
       this.calculateResult();
       return;
     }
@@ -60,23 +73,11 @@ export class CalculatorService {
     }
 
     // Maximo de 10 digitos
-    if (this.resultText().length > 10) {
-      console.log('Max digits reach');
+    if (this.resultText().length >= 10) {
+      // console.log('Max digits reach');
       return
     };
 
-    // validar punto decimal
-    if (value === '.') {
-      if (this.resultText().includes('.')) return;
-
-      this.resultText.update(currentValue => currentValue + '.')
-      return;
-    }
-
-    // Manejo del cero inicial
-    if (value === '0' && (this.resultText() === '0' || this.resultText() === '-0')) {
-      return;
-    }
 
     // Cambiar el signo
     if (value === '+/-') {
@@ -87,13 +88,14 @@ export class CalculatorService {
       this.resultText.update(currentValue => `-${currentValue}`)
       return;
     }
+    
 
     // Numeros
     this.resultText.update(currentValue => {
-      if (currentValue.includes('-0')) {
+      if (currentValue === '-0') {
         return '-' + value
       }
-      if (currentValue.includes('0')) return value;
+      if (currentValue === '0') return value;
 
       return currentValue + value
     })
@@ -123,11 +125,8 @@ export class CalculatorService {
       case "/":
         result = number1 / number2
         break;
-      // case "%":
-      //   result = this.porcentaje(number1, number2);
-      //   break;
       default:
-        console.log('cant calculate');
+        // console.log('cant calculate');
 
     }
     this.subResultText.set("0");
